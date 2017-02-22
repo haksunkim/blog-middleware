@@ -24,6 +24,10 @@ public class Article {
 	private Timestamp deletedAt;
 	private String tags;
 	
+	public long getId() {
+		return id;
+	}
+	
 	public String getTitle() {
 		return title;
 	}
@@ -72,8 +76,8 @@ public class Article {
 	public void setDeletedAt(Timestamp deletedAt) {
 		this.deletedAt = deletedAt;
 	}
-	public String[] getTags() {
-		return tags.split(",");
+	public String getTags() {
+		return tags;
 	}
 	public void setTags(String tags) {
 		this.tags = tags;
