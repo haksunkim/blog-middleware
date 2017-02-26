@@ -1,4 +1,4 @@
-package com.haksunkim.blog.middleware;
+package com.haksunkim.blog.middleware.config;
 
 import java.io.IOException;
 import javax.servlet.Filter;
