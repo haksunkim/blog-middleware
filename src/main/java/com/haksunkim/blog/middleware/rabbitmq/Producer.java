@@ -13,8 +13,9 @@ public class Producer {
 	@Autowired
 	RabbitTemplate rabbitTemplate;
 	
-	public void sendTo(String routingKey, String message) {
-		log.info("Sending> ...");
-		this.rabbitTemplate.convertAndSend(routingKey, message);
+	public String sendTo(String exchange, String routingKey, String message) {
+		log.info("Sending> " + message);
+		
+		return (String) this.rabbitTemplate.convertSendAndReceive(exchange, routingKey, message);		
 	}
 }
