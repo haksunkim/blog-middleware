@@ -1,5 +1,6 @@
 package com.haksunkim.blog.middleware.config.jwt;
 
+import java.io.IOException;
 import java.util.Date;
 
 import javax.servlet.http.HttpServletRequest;
@@ -16,7 +17,7 @@ public class TokenAuthenticationService {
 	private String secret = "blogwebapp";
 	private String tokenPrefix = "Bearer";
 	private String headerString = "Authorization";
-	public void addAuthentication(HttpServletResponse response, String username) {
+	public void addAuthentication(HttpServletResponse response, String username) throws IOException {
 		// we generate a token now.
 		String JWT = Jwts.builder()
 				.setSubject(username)
@@ -24,6 +25,10 @@ public class TokenAuthenticationService {
 				.signWith(SignatureAlgorithm.HS512, secret)
 				.compact();
 		response.addHeader(headerString, tokenPrefix + " " + JWT);
+		String responseString = "{\"success\":\"true\",\"token\":\"" + JWT + "\"}";
+		byte[] responseBytes = responseString.getBytes();
+		response.setContentType("application/json");
+		response.getOutputStream().write(responseBytes);
 	}
 	
 	public Authentication getAuthentication(HttpServletRequest request) {
